@@ -1,0 +1,31 @@
+class AppStrings{
+  static const bookingHistory = "Booking History";
+  static const noBookingYet = "No bookings yet!";
+  static const seatsText = "Seats:";
+  static const priceText = "Price:";
+  static const imageNotAvailable = "Image not available";
+  static const subscribeText = "Subscribers";
+  static const liveText = "LIVE";
+  static const description = "Description";
+  static const bookNowText = "Book Now";
+  static const viewsText = "Views:";
+  static const durationText = "Duration:";
+  static const movieExplorer = "Movie Explorer";
+  static const noMoviesFoundText = "No movies found";
+  static const seatSelectionText = "Seat Selection";
+  static const selectedSeatsText = "Selected Seats:";
+  static const proceedToCheckoutText = "Proceed to Checkout";
+  static const bookingSummary = "Booking Summary";
+  static const movieName = "Movie Name :";
+  static const selectedSeats = "Selected Seats:";
+  static const totalPrice = "Total Price:";
+  static const bookingConfirmed = "Booking Confirmed!";
+  static const bookingId = "Booking ID:";
+  static const movie = "Movie:";
+  static const seats = "Seats:";
+  static const totalPaid = "Total Paid:";
+  static const goToHome = "Go to Home";
+  static const somethingWentWrong = "Something went wrong!";
+  static const payNow = "Pay Now";
+  static const movieBookingApplication = "Movie Booking Application";
+}
