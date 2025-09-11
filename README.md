@@ -72,8 +72,3 @@ Once seats are selected, the user can proceed to checkout.
 The app navigates to a summary screen where the selected seats and movie details are displayed.
 
 
-## Screenshots
-
-### Movie List Screen
-![Movie List Screen](/Users/maheshsatre/Desktop/UI/Movie list.png)
-
