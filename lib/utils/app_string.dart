@@ -28,4 +28,5 @@ class AppStrings{
   static const somethingWentWrong = "Something went wrong!";
   static const payNow = "Pay Now";
   static const movieBookingApplication = "Movie Booking Application";
+  static const unableToFetchIt = "Unable to Fetch it ";
 }
