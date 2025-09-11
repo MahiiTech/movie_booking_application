@@ -33,19 +33,19 @@ Tools • Dart 3.6.0 • DevTools 2.40.2
 The seat booking feature is implemented using a grid-based system.
 Here’s the main logic behind it:
 
-#### Seat Grid Layout
+#### 1. Seat Grid Layout
 
 The seating arrangement is represented as a grid with a fixed number of rows and columns.
 
 Each seat has a unique seat ID based on its row and column (e.g., "2-5" means row 2, column 5).
 
-#### Booked Seats
+#### 2. Booked Seats
 
 Some seats are pre-defined as already booked and cannot be selected.
 
 Booked seats are displayed in grey.
 
-#### Seat Selection
+#### 3. Seat Selection
 
 Users can tap on available seats to select them.
 
@@ -53,19 +53,19 @@ Selected seats are highlighted in green.
 
 If the user taps again, the seat will be deselected.
 
-#### State Management
+#### 4. State Management
 
 The app uses Provider to manage seat selection state.
 
 The SeatSelectionProvider holds:
 
-#### Booked seats list
+#### 5. Booked seats list
 
 Currently selected seats set
 
 Whenever a seat is toggled, the UI updates automatically.
 
-#### Checkout Flow
+#### 6. Checkout Flow
 
 Once seats are selected, the user can proceed to checkout.
 
