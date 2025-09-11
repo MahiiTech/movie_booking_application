@@ -15,66 +15,76 @@ class MovieListPage extends StatefulWidget {
 
 class _MovieListPageState extends State<MovieListPage> {
   late Future<bool> _moviesFuture;
+  late PageController _pageController;
 
   @override
   void initState() {
     super.initState();
     final movieViewModel = Provider.of<MovieViewModel>(context, listen: false);
     _moviesFuture = movieViewModel.fetchMovies();
+
+    _pageController = PageController(viewportFraction: 0.75);
+    _pageController.addListener(() {
+      movieViewModel.updatePage(_pageController.page ?? 0.0);
+    });
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final movieViewModel = Provider.of<MovieViewModel>(context);
-
     return Scaffold(
-      appBar: AppBar(
       backgroundColor: Colors.black,
-      iconTheme: const IconThemeData(color: Colors.white),
-      title: const Text(
-        AppStrings.movieExplorer,
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 18,
-          fontWeight: FontWeight.w700,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        elevation: 0,
+        title: const Text(
+          AppStrings.movieExplorer,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 22,
+            fontWeight: FontWeight.w800,
+          ),
         ),
+        centerTitle: true,
+        actions: [
+          Consumer<ThemeProvider>(
+            builder: (context, themeProvider, child) {
+              return IconButton(
+                icon: Icon(
+                  themeProvider.isDarkMode ? Icons.dark_mode : Icons.light_mode,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  themeProvider.toggleTheme();
+                },
+              );
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.history, color: Colors.white),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const BookingHistoryScreen(),
+                ),
+              );
+            },
+          ),
+        ],
       ),
-      actions: [
-        Consumer<ThemeProvider>(
-          builder: (context, themeProvider, child) {
-            return IconButton(
-              icon: Icon(
-                themeProvider.isDarkMode ? Icons.dark_mode : Icons.light_mode,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                themeProvider.toggleTheme();
-              },
-            );
-          },
-        ),
-
-        IconButton(
-          icon: const Icon(Icons.info, color: Colors.white),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => BookingHistoryScreen(),
-              ),
-            );
-          },
-        ),
-      ],
-      centerTitle: true,
-    ),
-      body: FutureBuilder<bool>(
-        future: _moviesFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+      body: Consumer<MovieViewModel>(
+        builder: (context, movieViewModel, _) {
+          if (movieViewModel.isLoading) {
+            return const Center(
+                child: CircularProgressIndicator(color: Colors.white));
           }
-          if (snapshot.hasError || snapshot.data == false) {
+          if (movieViewModel.error != null) {
             return Center(
               child: Text(
                 movieViewModel.error ?? AppStrings.somethingWentWrong,
@@ -84,23 +94,68 @@ class _MovieListPageState extends State<MovieListPage> {
           }
 
           if (movieViewModel.movies.isEmpty) {
-            return const Center(child: Text(AppStrings.noMoviesFoundText));
+            return const Center(
+              child: Text(
+                AppStrings.noMoviesFoundText,
+                style: TextStyle(color: Colors.white),
+              ),
+            );
           }
 
-          return GridView.builder(
-            padding: const EdgeInsets.all(8),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 8,
-              mainAxisSpacing: 8,
-              childAspectRatio: 0.7,
-            ),
-            itemCount: movieViewModel.movies.length,
-            itemBuilder: (context, index) =>
-                MovieCardWidget(movie: movieViewModel.movies[index]),
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Fancy Date Header
+              Padding(
+                padding:
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Expanded(
+                      child: Text(
+                        "11 SEP",
+                        style: TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          letterSpacing: 2,
+                        ),
+                      ),
+                    ),
+                    Chip(
+                      label: Text("Tomorrow"),
+                      backgroundColor: Colors.white24,
+                      labelStyle: TextStyle(color: Colors.black),
+                    )
+                  ],
+                ),
+              ),
+
+              // Fancy Carousel
+              Expanded(
+                child: PageView.builder(
+                  controller: _pageController,
+                  itemCount: movieViewModel.movies.length,
+                  itemBuilder: (context, index) {
+                    final scale = (movieViewModel.currentPage - index).abs() < 1
+                        ? 1 - (movieViewModel.currentPage - index).abs() * 0.2
+                        : 0.8;
+                    return Transform.scale(
+                      scale: scale,
+                      child: MovieCardWidget(
+                        movie: movieViewModel.movies[index],
+                        heroTag: "movie_$index",
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
           );
         },
       ),
     );
   }
 }
+

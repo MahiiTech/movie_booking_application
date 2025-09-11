@@ -29,4 +29,9 @@ class AppStrings{
   static const payNow = "Pay Now";
   static const movieBookingApplication = "Movie Booking Application";
   static const unableToFetchIt = "Unable to Fetch it ";
+  static const screenTextString = "SCREEN";
+  static const availableTextString = "Available";
+  static const selectedTextString = "Selected";
+  static const bookedTextString = "Booked";
+  static const noSeatsSelectedTextString = "No seats selected";
 }

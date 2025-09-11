@@ -36,16 +36,27 @@ class BookingConfirmationDialog extends StatelessWidget {
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
+                  color: Colors.black
               ),
             ),
             const SizedBox(height: 16),
-            Text("${AppStrings.bookingId} $bookingId"),
+            Text("${AppStrings.bookingId} $bookingId", style: TextStyle(
+                color: Colors.black
+            ),),
             const SizedBox(height: 8),
-            Text("${AppStrings.movie} $movieName"),
+            Text("${AppStrings.movie} $movieName", style: TextStyle(
+                color: Colors.black
+            ),),
             const SizedBox(height: 8),
-            Text("${AppStrings.seats} ${seats.join(", ")}"),
+            Text("${AppStrings.seats} ${seats.join(", ")}",
+              style: TextStyle(
+                  color: Colors.black
+              ),),
             const SizedBox(height: 8),
-            Text("${AppStrings.totalPaid} ₹$totalPrice"),
+            Text("${AppStrings.totalPaid} ₹$totalPrice",
+              style: TextStyle(
+                  color: Colors.black
+              ),),
             const SizedBox(height: 24),
             ElevatedButton(
               style: ElevatedButton.styleFrom(

@@ -59,6 +59,7 @@ class ShowSummaryScreen extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
+                        color: Colors.black,
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -67,6 +68,7 @@ class ShowSummaryScreen extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
+                        color: Colors.black,
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -78,8 +80,7 @@ class ShowSummaryScreen extends StatelessWidget {
                             (seat) => Chip(
                           label: Text(seat),
                           backgroundColor: Colors.black,
-                          labelStyle:
-                          const TextStyle(color: Colors.white),
+                          labelStyle: const TextStyle(color: Colors.white),
                         ),
                       )
                           .toList(),
@@ -93,6 +94,7 @@ class ShowSummaryScreen extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
+                            color: Colors.black,
                           ),
                         ),
                         Text(
@@ -116,47 +118,64 @@ class ShowSummaryScreen extends StatelessWidget {
 
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16),
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.black,
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
+        child: SizedBox(
+          height: 54,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.zero,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(14),
+              ),
+              elevation: 6,
+              backgroundColor: Colors.transparent,
             ),
-            elevation: 6,
-          ),
-          onPressed: selectedSeats.isEmpty
-              ? null
-              : () async {
-            String bookingId = "MS${Random().nextInt(999999)}";
-            var box = Hive.box<Booking>('bookings');
+            onPressed: selectedSeats.isEmpty
+                ? null
+                : () async {
+              String bookingId = "MS${Random().nextInt(999999)}";
+              var box = Hive.box<Booking>('bookings');
 
-            final booking = Booking(
-              movieName: movieName,
-              seats: selectedSeats.join(", "),
-              price: totalPrice,
-            );
-            await box.add(booking);
-            showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (context) {
-                return BookingConfirmationDialog(
-                  bookingId: bookingId,
-                  movieName: movieName,
-                  seats: selectedSeats,
-                  totalPrice: totalPrice,
-                );
-              },
-            );
-          },
-          child: const Text(
-            AppStrings.payNow,
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 1.2,
-              color: Colors.white,
+              final booking = Booking(
+                movieName: movieName,
+                seats: selectedSeats.join(", "),
+                price: totalPrice,
+              );
+              await box.add(booking);
+
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) {
+                  return BookingConfirmationDialog(
+                    bookingId: bookingId,
+                    movieName: movieName,
+                    seats: selectedSeats,
+                    totalPrice: totalPrice,
+                  );
+                },
+              );
+            },
+            child: Ink(
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Colors.purple, Colors.deepPurple],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                ),
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: Container(
+                alignment: Alignment.center,
+                child: const Text(
+                  AppStrings.payNow,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.2,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
             ),
           ),
         ),
