@@ -1,16 +1,72 @@
-# movie_application
+# 🎬 Movie Booking App
 
-A new Flutter project.
+A Flutter application for browsing movies and booking seats with an interactive seat selection system.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 📱 Application Details
+- **Application Name:** Movie Booking App
+- **Framework:** Flutter
+- **State Management:** Provider
+- **Platform:** Android / iOS
 
-A few resources to get you started if this is your first Flutter project:
+---
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 🛠️ Project Setup
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This project is built using the following environment:
+
+Flutter 3.27.1 • channel stable • https://github.com/flutter/flutter.git
+
+Framework • revision 17025dd882 (9 months ago) • 2024-12-17 03:23:09 +0900
+Engine • revision cb4b5fff73
+Tools • Dart 3.6.0 • DevTools 2.40.2
+
+
+### 🔧 Steps to Run the Project
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/movie_booking_app.git
+
+### Seat Booking / Selection Logic
+
+The seat booking feature is implemented using a grid-based system.
+Here’s the main logic behind it:
+
+#### Seat Grid Layout
+
+The seating arrangement is represented as a grid with a fixed number of rows and columns.
+
+Each seat has a unique seat ID based on its row and column (e.g., "2-5" means row 2, column 5).
+
+#### Booked Seats
+
+Some seats are pre-defined as already booked and cannot be selected.
+
+Booked seats are displayed in grey.
+
+#### Seat Selection
+
+Users can tap on available seats to select them.
+
+Selected seats are highlighted in green.
+
+If the user taps again, the seat will be deselected.
+
+#### State Management
+
+The app uses Provider to manage seat selection state.
+
+The SeatSelectionProvider holds:
+
+#### Booked seats list
+
+Currently selected seats set
+
+Whenever a seat is toggled, the UI updates automatically.
+
+#### Checkout Flow
+
+Once seats are selected, the user can proceed to checkout.
+
+The app navigates to a summary screen where the selected seats and movie details are displayed.
