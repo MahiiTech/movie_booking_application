@@ -107,7 +107,6 @@ class BookingHistoryScreen extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 12),
 
-                                  // Seats chips
                                   Wrap(
                                     spacing: 8,
                                     children: (booking?.seats.split(",") ?? [])
@@ -124,7 +123,6 @@ class BookingHistoryScreen extends StatelessWidget {
 
                                   const SizedBox(height: 10),
 
-                                  // Price row
                                   Row(
                                     mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,

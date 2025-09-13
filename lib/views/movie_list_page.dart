@@ -136,8 +136,6 @@ class _MovieListPageState extends State<MovieListPage> {
                   ],
                 ),
               ),
-
-              // Fancy Carousel
               Expanded(
                 child: PageView.builder(
                   controller: _pageController,
