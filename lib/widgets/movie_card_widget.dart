@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:movie_application/utils/app_string.dart';
 import '../models/movie_response_model.dart';
 import '../views/movie_details_page.dart';
 
@@ -35,7 +36,7 @@ class MovieCardWidget extends StatelessWidget {
                   color: Colors.grey.shade800,
                   child: const Center(
                     child: Text(
-                      "Image Not Available",
+                      AppStrings.imageNotAvailable,
                       style: TextStyle(color: Colors.white70),
                     ),
                   ),
@@ -59,7 +60,6 @@ class MovieCardWidget extends StatelessWidget {
                 ),
               ),
 
-              // Movie Info with Glassmorphic Tags
               Positioned(
                 bottom: 20,
                 left: 16,
