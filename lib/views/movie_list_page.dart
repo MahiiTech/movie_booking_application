@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_application/utils/app_string.dart';
+import 'package:movie_application/utils/extensions.dart';
 import 'package:provider/provider.dart';
 import '../viewmodels/movie_view_model.dart';
 import '../viewmodels/theme_provider.dart';
@@ -21,13 +22,17 @@ class _MovieListPageState extends State<MovieListPage> {
   void initState() {
     super.initState();
     final movieViewModel = Provider.of<MovieViewModel>(context, listen: false);
-    _moviesFuture = movieViewModel.fetchMovies();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _moviesFuture = movieViewModel.fetchMovies();
+    });
 
     _pageController = PageController(viewportFraction: 0.75);
     _pageController.addListener(() {
       movieViewModel.updatePage(_pageController.page ?? 0.0);
     });
   }
+
 
   @override
   void dispose() {
@@ -111,11 +116,11 @@ class _MovieListPageState extends State<MovieListPage> {
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     Expanded(
                       child: Text(
-                        "11 SEP",
-                        style: TextStyle(
+                        DateTime.now().toDayMonth(),
+                        style: const TextStyle(
                           fontSize: 40,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
@@ -123,8 +128,8 @@ class _MovieListPageState extends State<MovieListPage> {
                         ),
                       ),
                     ),
-                    Chip(
-                      label: Text("Tomorrow"),
+                    const Chip(
+                      label: Text("Today"),
                       backgroundColor: Colors.white24,
                       labelStyle: TextStyle(color: Colors.black),
                     )
