@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:movie_application/utils/extensions.dart';
 import '../models/booking_model.dart';
 import '../utils/app_string.dart';
 
@@ -133,7 +134,7 @@ class BookingHistoryScreen extends StatelessWidget {
                                               color: Colors.white70),
                                           const SizedBox(width: 6),
                                           Text(
-                                            "${booking?.seats.length ?? 0} ${AppStrings.seatsText}",
+                                            DateTime.now().toDayMonth(),
                                             style: const TextStyle(
                                                 color: Colors.white70,
                                                 fontSize: 14),
